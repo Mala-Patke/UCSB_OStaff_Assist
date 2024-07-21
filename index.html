@@ -150,8 +150,6 @@
                         document.getElementById('courseNumberInput').value
                     );
 
-                    console.log(courseFindResults);
-
                     //Basic info
                     let deptPrefix = document.getElementById('collegeDepartmentBar').value
                         .split(" ")
@@ -171,10 +169,9 @@
                     for(let result of courseFindResults.foundArticulations) {
                         //Articulated series
                         let li = document.createElement('li');
-                        if(result.ucsb.includes(",")) li.innerText = `${result.ucsb} at UCSB are satisfied by completing ${result.cc} at ${college.name}`;
-                        else li.innerText = `Direct equivalency to ${result.ucsb} at UCSB`;
+                        if(result.ucsb.includes(",")) li.innerText = `All of ${result.ucsb} at UCSB are satisfied by completing ${result.cc} at ${college.name}`;
+                        else li.innerText = `${result.ucsb} at UCSB is satisfied by completing ${result.cc.includes('and') ? 'all of ' : ''}${result.cc} at ${college.name}`;
                         document.getElementById('t_list').appendChild(li);
-                         
                     }
 
                     document.getElementById('whereTheResultsGo').removeAttribute('hidden');
@@ -185,12 +182,12 @@
     </head>
     <body>
         <div id="collegeSelectArea">
-            <input list="collegeSearchData" id="collegeSearchBar">
+            <input list="collegeSearchData" id="collegeSearchBar" onfocus="this.value=''">
             <datalist id="collegeSearchData"></datalist>
             <button id="selectCollege">Select College</button>
         </div>
         <div id="departmentSelectArea" hidden>
-            <input list="collegeDepartmentData" id="collegeDepartmentBar">
+            <input list="collegeDepartmentData" id="collegeDepartmentBar" onfocus="this.value=''">
             <datalist id="collegeDepartmentData"></datalist>
             <button id="selectDepartment">Select Department</button>
         </div>
@@ -204,9 +201,6 @@
                 <ul id="t_list">
                 </ul>
             </p>
-            <div>
-                <button id="reset">Reset</button>
-            </div>
         </div>
     </body>
 </html>
